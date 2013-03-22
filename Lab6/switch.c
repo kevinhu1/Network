@@ -1,3 +1,4 @@
+#include "switch.h"
 
 void switchInit(switchState * sstate, int physid)
 {
@@ -19,7 +20,7 @@ while(1) {
 
    /* Check if there is a command message from the manager */
    int length; /* Size of string in pipe */
-   length = hostCommandReceive(&(hstate->manLink),buffer);
+   length = hostCommandReceive(&(sstate->manLink),buffer);
 
    if (length > 1) { /* Execute the manager's command */
       findWord(word, buffer, 1);
@@ -76,4 +77,9 @@ while(1) {
 
 } /* End of while loop */
 
+}
+
+int switchPacketReceive(switchState * sstate, char command[])
+{
+	return 0;
 }
