@@ -24,12 +24,73 @@
 
 
 void switchMain(switchState * sstate)
+{	
+	char buffer[1000]; /* The message from the manager */
+	char word[1000];
+	int  value;
+	char replymsg[1000];   /* Reply message to be displayed at the manager */
+	packetBuffer tmpbuff;
+
+	int chech_host;
+	int host;
+	int i;
+
+	int packet_length;
+	int head = 0;
+	int tail = 0;
+	packetBuffer queue[1000];
+	packetBuffer q_buffer;
+
+
+
+	while(1)
+	{
+		/* Receive packets */
+		for(host = 0; host < MAXCONNECT; host++)
+		{
+			linkReceive(&(sstate->linkin[host],&tmpbuff);
+			if(tmpbuff.valid)
+			{
+				sstate->recvID = sstate->linkin[host].uniPipeInfo.physIdSrc;
+				// update_table(sstate, &tmpbuff, host);
+				// insertFIFO(&queue, &tmpbuff, sizeof(packetBuffer), &head, &tail, 1000);
+				// break;
+			}
+		}
+
+		// transmit first packet of queue
+		if(head != tail)
+		{	}
+
+		// send switch to sleep just like HOST
+		usleep(TENMILLISEC);
+			
+	}
+}
+
+
+void update_table(switchState * sstate, packetBuffer *pbuff, int host)
+{	int i;
+	for(i = 0; i < MAXCONNECT; i++)
+	{
+		//if(sstate->stable[i][0] == sstate->physidConnect[host]
+		//{	sstate->table[i][1] = pbuff->srcaddr;
+		//	break;
+		//}
+	}
+
+	// sstate->tableIndex++;
+
+}
+
+
+
+
+void insertQueue(void *buffer, void *item, usigned itemSize, int * head, int * tail, int bufferSize)
 {	}
 
-
-
-
-
+void removeQueue(void *buffer, void *item, unsigned itemSize, int * head, int * tail, int bufferSize)
+{	}
 
 // ----------------------------------------------------- //
 
@@ -73,19 +134,15 @@ void switchSetNetAddr(switchState * sstate, int netaddr, char replymsg[])
 
 void switchInit(switchState * sstate, int physid)
 {
-/*
-hostInitState(hstate, physid);   // Initialize host's state
 
 // Initialize the receive and send packet buffers
-hostInitRcvPacketBuff(&(hstate->rcvPacketBuff));  
-hostInitSendPacketBuff(&(hstate->rcvPacketBuff)); 
-*/
+switchInitRcvPacketBuff(&(sstate->rcvPacketBuff));  
+switchInitSendPacketBuff(&(sstate->rcvPacketBuff)); 
 }
 
 
 
-// ----------------------------------------------------- //
-
+// ------------- Initialize Packet Buffs ----------------- //
 
 void switchInitSendPacketBuff(packetBuffer * packetbuff)
 {
@@ -93,10 +150,15 @@ void switchInitSendPacketBuff(packetBuffer * packetbuff)
 	packetbuff->new = 0;
 }
 
+void switchInitRcvPacketBuff(packetBuffer * packetbuff)
+{
+	packetbuff->valid = 0;
+	packetbuff->new = 0;
+}
 
 
 // ----------------------------------------------------- //
-
+// probably won't need this nor dl
 void switchUploadPacket(switchState * sstate, char fname[], char replymsg[]) 
 {
 	char c;
@@ -152,18 +214,6 @@ void switchUploadPacket(switchState * sstate, char fname[], char replymsg[])
 	
 	fclose(fp);
 }
-// ----------------------------------------------------- //
-
-void switchInitRcvPacketBuff(packetBuffer * packetbuff)
-{
-packetbuff->valid = 0;
-packetbuff->new = 0;
-}
-
-
-
-
-// ----------------------------------------------------- //
 
 
 void switchDownloadPacket(switchState * sstate, char fname[], char replymsg[]) 
@@ -205,8 +255,6 @@ fclose(fp);
 
 
 // ----------------------------------------------------- //
-
-
 // probably won't need
 void switchClearRcvFlg(switchState * sstate, char replymsg[])
 {
@@ -217,6 +265,7 @@ hstate->rcvPacketBuff.new = 0;
 /* Message to the manager */
 strcpy(replymsg, "Host's packet received flag is cleared");
 }
+
 
 
 

@@ -3,6 +3,7 @@
  */
 
 #define NAME_LENGTH 100
+#define MAXCONNECT 3	// number of links for a switch
 
 typedef struct {  /* routing table */
 	int nbraddr;
@@ -17,7 +18,12 @@ typedef struct {  /* state of switch */
 	int netaddr;
 	packetBuffer sendPacketBuff;
 	packetBuffer rcvPacketBuff;
-	routingTable rt[3];
+//	routingTable rt[MAXCONNECT];
+          int nbraddr[MAXCONNECT];
+	  LinkInfo linkin[MAXCONNECT];
+	  LinkInfo linkout[MAXCONNECT];
+
+	int recvID;		// physical ID of incoming packet
 } switchState;
 
 void switchMain(switchState * sstate);
@@ -31,8 +37,15 @@ void switchMain(switchState * sstate);
 
 
 // ----------------------------------------------------- //
+// our very own functions!
+
+void update_table(switchState * sstate, packetBuffer *pbuff, int host);
+void insertQueue(void *buffer, void *item, usigned itemSize, int * head, int * tail, int bufferSize);
+void removeQueue(void *buffer, void *item, unsigned itemSize, int * head, int * tail, int bufferSize);
 
 
+
+// ----------------------------------------------------- //
 
 void switchTransmitPacket(hostState * hstate, char word[], char replymsg[]);
 // get destination address from routing table
