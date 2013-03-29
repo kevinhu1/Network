@@ -5,23 +5,34 @@
 #define NAME_LENGTH 100
 #define MAXCONNECT 3	// number of links for a switch
 
-typedef struct {  /* routing table */
+/*
+typedef struct {  // routing table
 	int nbraddr;
 	LinkInfo linkin;
 	LinkInfo linkout;
 }  routingTable;
+*/
 
 typedef struct {  /* state of switch */
-	int physid;
-	char maindir[NAME_LENGTH];
-	int maindirvalid;
-	int netaddr;
+	// int physid;
+
+	int numConnects;	// number of hosts connected to switch
+	int table[MAXCONT][SWITCHDATA];	// switch routing table
+	int tableIndex;			// next index to use for table
+
+	//char maindir[NAME_LENGTH];
+	//int maindirvalid;
+	//int netaddr;
+
 	packetBuffer sendPacketBuff;
 	packetBuffer rcvPacketBuff;
+
+	int physidConnect[MAXCONNECT];	// physical IDs of connected nodes
+
 //	routingTable rt[MAXCONNECT];
-          int nbraddr[MAXCONNECT];
-	  LinkInfo linkin[MAXCONNECT];
-	  LinkInfo linkout[MAXCONNECT];
+//          int nbraddr[MAXCONNECT];
+	LinkInfo linkin[MAXCONNECT];
+	LinkInfo linkout[MAXCONNECT];
 
 	int recvID;		// physical ID of incoming packet
 } switchState;
@@ -61,57 +72,48 @@ void switchSetNetAddr(switchState * sstate, int netaddr, char replymsg[]);
 
 
 
-
-
 void switchInit(switchState * sstate, int physid);
 // initialize state
 // Initialize recv/send packet buffers
 
 
 
-
-
 void switchInitSendPacketBuff(packetBuffer * packetbuff);
-// initialize a new packet buffer to zero
+void switchInitRcvPacketBuff(packetBuffer * packetbuff);
+// initialize a new packet to zero
 
 
 
 
 void switchUploadPacket(switchState * sstate, char fname[], char replymsg[]);
-// upload file into tempbuff
+// upload file into tempbuff; do not need to upload
 
 
 
 
 
 
-void switchInitRcvPacketBuff(packetBuffer * packetbuff);
-// initialize a new receive packet to zero
-
-
-
-
-
+// do not need to download packets
 void switchDownloadPacket(switchState * sstate, char fname[], char replymsg[]);
 
 
 
-//probably won't need
+//probably won't need flag
 void switchClearRcvFlg(switchState * sstate, char replymsg[])
-// clears receive flag LOL
+// clears receive flag
 
 
 
 
-
+// do not need to set main directory for switches
 void switchSetMainDir(switchState * sstate, char dirname[], char replymsg[]);
 // sets main directory name
 
 
 
 
-
-void switchGetHostState(switchState * sstate, managerLink * manLink, char replymsg[]);
+// involves using manager, probably no need
+// void switchGetHostState(switchState * sstate, managerLink * manLink, char replymsg[]);
 
 
 void switchInitState(switchState * sstate, int physid);

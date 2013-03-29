@@ -60,7 +60,20 @@ void switchMain(switchState * sstate)
 
 		// transmit first packet of queue
 		if(head != tail)
-		{	}
+		{
+			// removeFIFO(&queue, &q_buffer, sizeof(packetBuffer), &head, &tail, 1000);
+			// if(q_buffer.dstaddr <1000)
+			// transmit(sstate, &q_buffer, BROADCAST);
+			// else
+			// {	for(host = 0; host < sstate->numConnects; host++)
+			// 	{	if(sstate->table[host][1] == q_buffer.dstaddr)
+			// 		{	trasmit(sstate,&q_buffer,host);
+			// 			break;
+			// 		}
+			// 	}
+			// 	if(host == sstate->numConnects) transmit(sstate, &q_buffer, BROADCAST);
+			// }
+		}
 
 		// send switch to sleep just like HOST
 		usleep(TENMILLISEC);
@@ -73,7 +86,7 @@ void update_table(switchState * sstate, packetBuffer *pbuff, int host)
 {	int i;
 	for(i = 0; i < MAXCONNECT; i++)
 	{
-		//if(sstate->stable[i][0] == sstate->physidConnect[host]
+		//if(sstate->table[i][0] == sstate->physidConnect[host]
 		//{	sstate->table[i][1] = pbuff->srcaddr;
 		//	break;
 		//}
