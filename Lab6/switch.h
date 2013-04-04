@@ -4,33 +4,20 @@
 
 #define NAME_LENGTH 100
 #define MAXCONNECT 3	// number of links for a switch
-
-/*
-typedef struct {  // routing table
-	int nbraddr;
-	LinkInfo linkin;
-	LinkInfo linkout;
-}  routingTable;
-*/
+#define SWITCHDATA 4
+#define BROADCAST 1010 
 
 typedef struct {  /* state of switch */
-	// int physid;
-
+	char switchid;
 	int numConnects;	// number of hosts connected to switch
 	int table[MAXCONT][SWITCHDATA];	// switch routing table
 	int tableIndex;			// next index to use for table
-
-	//char maindir[NAME_LENGTH];
-	//int maindirvalid;
-	//int netaddr;
 
 	packetBuffer sendPacketBuff;
 	packetBuffer rcvPacketBuff;
 
 	int physidConnect[MAXCONNECT];	// physical IDs of connected nodes
 
-//	routingTable rt[MAXCONNECT];
-//          int nbraddr[MAXCONNECT];
 	LinkInfo linkin[MAXCONNECT];
 	LinkInfo linkout[MAXCONNECT];
 
