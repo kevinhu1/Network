@@ -1,0 +1,17 @@
+Group Members:
+	Kevin Hu
+	Bryant Lee
+	Joanie Wong
+
+How to Compile:
+	"make"
+
+How to Run:
+	"net367"
+
+The program will then request a topology file.
+Star topology is in "star"
+Tree topology is in "tree"
+
+
+
