@@ -8,6 +8,28 @@
 #define MAXBUFFER 1000 /* Maximum size of char buffer */
 
 
+// convert string of binary into an integer
+int bin2int(char bin[], int length);
+
+
+
+// converts a SEVEN bit char to a binary string
+void char2bin(char c, char str[]);
+
+void char2bin(char c, char str[])
+{
+	int i;
+
+	for(i=6; i>=0; i--)
+	;
+
+}
+
+int str256toint(char str[], int length);
+
+
+
+
 /* Pre:  a character strings c1[] and c2[] */
 /* Post: appended to c1[] is a single space and then c2[] is appended */
 void appendWithSpace(char c1[], char c2[])
