@@ -12,6 +12,6 @@ How to Run:
 The program will then request a topology file.
 Star topology is in "star"
 Tree topology is in "tree"
-
+Arbitrary topology is in "random"
 
 

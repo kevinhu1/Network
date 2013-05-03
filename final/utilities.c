@@ -7,6 +7,26 @@
 
 #define MAXBUFFER 1000 /* Maximum size of char buffer */
 
+// algorithm to process received local state packets
+void algorithm();
+/*
+void algorithm()
+{
+	if(root > neighbor.root)
+	{
+		root = neighbor.root;
+		parent = neighbor;
+		distance = neighbor.distance + 1;
+	}
+
+	else if (neighbor.distance + 1 < distance)
+	{
+		parent = neighbor;
+		distance = neighbor.distance + 1;
+	}
+}
+*/
+
 
 // convert string of binary into an integer
 int bin2int(char bin[], int length);
